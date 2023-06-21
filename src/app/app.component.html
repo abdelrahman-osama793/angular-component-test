@@ -1,0 +1,77 @@
+<div class="bounding-box">
+  <div cdkDrag cdkDragBoundary=".bounding-box" class="drag-box">
+    Drag by the handler!
+
+    <div class="handle" cdkDragHandle>
+      <span class="material-icons">drag_indicator</span>
+    </div>
+  </div>
+
+  <div cdkDrag cdkDragBoundary=".bounding-box" class="drag-box">
+    Draggable box!
+  </div>
+</div>
+
+<!-- <div cdkDropList (cdkDropListDropped)="onDrop($event)"
+[cdkDropListData]="goodGames" class="bounding-list">
+
+  <div cdkDrag class="draggable-item" *ngFor="let game of goodGames">
+    {{game}} 
+  </div>
+</div> -->
+
+<div class="transfer-between-two">
+  <h2>Transfer Between Two Lists or Arrange a List</h2>
+
+  <div cdkDropListGroup>
+    <h2>Played</h2>
+    <div
+      cdkDropList
+      (cdkDropListDropped)="onDrop($event)"
+      [cdkDropListData]="goodGames"
+    >
+      <div cdkDrag class="draggable-item" *ngFor="let game of goodGames">
+        {{ game }}
+      </div>
+    </div>
+
+    <h2>Wishlist</h2>
+    <div
+      cdkDropList
+      (cdkDropListDropped)="onDrop($event)"
+      [cdkDropListData]="wishlistGames"
+    >
+      <div cdkDrag class="draggable-item" *ngFor="let game of wishlistGames">
+        {{ game }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2>Transfer from One list to the other one only</h2>
+<h2>Played</h2>
+<div
+  cdkDropList
+  id="playedGames"
+  (cdkDropListDropped)="onDrop($event)"
+  [cdkDropListData]="goodGames"
+>
+  <div cdkDrag class="draggable-item" *ngFor="let game of goodGames">
+    {{ game }}
+  </div>
+</div>
+
+<h2>Wishlist</h2>
+<div
+  cdkDropList
+  id="wishlistGames"
+  [cdkDropListConnectedTo]="['playedGames']"
+  (cdkDropListDropped)="onDrop($event)"
+  [cdkDropListData]="wishlistGames"
+>
+  <div cdkDrag class="draggable-item" *ngFor="let game of wishlistGames">
+    {{ game }}
+  </div>
+</div>
+
+<router-outlet></router-outlet>
