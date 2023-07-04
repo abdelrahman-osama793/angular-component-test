@@ -159,7 +159,9 @@ export class AppComponent {
     }
   }
 
-  toggleValue(item: any){}
+  toggleValue(item:any){
+    item.selected = !item.selected;
+  }
   
   submit(){}
 
