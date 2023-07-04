@@ -6,6 +6,8 @@ h2{
   background-color: burlywood;
   border-radius: 50px;
   margin: auto;
+  padding: 10px;
+  height: 100%;
 }
 
 .drag-box {
@@ -18,6 +20,15 @@ h2{
   display: flex;
   border-radius: 10px;
   position: relative;
+}
+
+.drop-zone {
+  height: 100%;
+  background-color: white;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-radius: 10px;
 }
 
 .draggable-item {
@@ -75,14 +86,18 @@ h2{
   text-align: center;
 }
 
-.cdk-drag-placeholder {
-  opacity: 0;
-}
-
 .cdk-drag-animating {
   transition: transform 300ms ease-in;
 }
 
 .cdk-drop-list-dragging .cdk-drag {
   transition: transform 200ms ease-in;
+}
+
+/* .cdk-drag:not(.cdk-drag-preview) {
+  transform: none !important;
+}
+*/
+.cdk-drag-placeholder {
+  opacity: 0.5;
 }

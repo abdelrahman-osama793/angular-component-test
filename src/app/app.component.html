@@ -1,4 +1,4 @@
-<div class="bounding-box">
+<!-- <div class="bounding-box">
   <div cdkDrag cdkDragBoundary=".bounding-box" class="drag-box">
     Drag by the handler!
 
@@ -12,13 +12,13 @@
   </div>
 </div>
 
-<!-- <div cdkDropList (cdkDropListDropped)="onDrop($event)"
+<div cdkDropList (cdkDropListDropped)="onDrop($event)"
 [cdkDropListData]="goodGames" class="bounding-list">
 
   <div cdkDrag class="draggable-item" *ngFor="let game of goodGames">
     {{game}} 
   </div>
-</div> -->
+</div>
 
 <div class="transfer-between-two">
   <h2>Transfer Between Two Lists or Arrange a List</h2>
@@ -48,7 +48,7 @@
   </div>
 </div>
 
-<h2>Transfer from One list to the other one only</h2>
+<h2>Transfer from Wishlist to Played only or arrange a list</h2>
 <h2>Played</h2>
 <div
   cdkDropList
@@ -71,6 +71,184 @@
 >
   <div cdkDrag class="draggable-item" *ngFor="let game of wishlistGames">
     {{ game }}
+  </div>
+</div> -->
+
+<div class="transfer-between-two">
+  <h2>Transfer Between Two Lists or Arrange a List</h2>
+
+  <div class="row">
+    <div class="col-4">
+      <h2>Components</h2>
+      <div
+        cdkDropList
+        id="playedGames"
+        cdkDropListSortingDisabled="true"
+        [cdkDropListConnectedTo]="['wishlistGames']"
+        [cdkDropListData]="fieldModels"
+      >
+        <div cdkDrag class="draggable-item" *ngFor="let field of fieldModels">
+          {{ field.type }}
+        </div>
+      </div>
+    </div>
+
+    <div class="col-8">
+      <h2>Body</h2>
+      <div
+        cdkDropList
+        id="wishlistGames"
+        (cdkDropListDropped)="onDrop($event)"
+        [cdkDropListData]="body.attributes"
+        class="drop-zone"
+      >
+        <div *ngIf="bodyFields.length === 0">
+          Drag and Drop a component here
+        </div>
+        <div cdkDrag *ngFor="let attribute of bodyFields; let i = index">
+          <div *ngIf="attribute.type == 'text'">
+            <label>{{ attribute.label }}</label>
+            <label *ngIf="attribute.required" class="text-danger">*</label>
+            <input
+              type="text"
+              class="form-control"
+              id="{{ attribute.name }}"
+              placeholder="{{ attribute.placeholder }}"
+            />
+          </div>
+          <div *ngIf="attribute.type == 'email'">
+            <label>{{ attribute.label }}</label>
+            <label *ngIf="attribute.required" class="text-danger">*</label>
+            <input
+              type="email"
+              class="form-control"
+              id="{{ attribute.name }}"
+              placeholder="{{ attribute.placeholder }}"
+            />
+          </div>
+          <div *ngIf="attribute.type == 'phone'">
+            <label>{{ attribute.label }}</label>
+            <label *ngIf="attribute.required" class="text-danger">*</label>
+            <input
+              type="text"
+              class="form-control"
+              id="{{ attribute.name }}"
+              placeholder="{{ attribute.placeholder }}"
+            />
+          </div>
+          <div *ngIf="attribute.type == 'number'">
+            <label>{{ attribute.label }}</label>
+            <label *ngIf="attribute.required" class="text-danger">*</label>
+            <input
+              type="number"
+              class="form-control"
+              id="{{ attribute.name }}"
+              min="{{ attribute.min }}"
+              max="{{ attribute.max }}"
+              placeholder="{{ attribute.placeholder }}"
+            />
+          </div>
+          <div *ngIf="attribute.type == 'date'">
+            <label>{{ attribute.label }}</label>
+            <label *ngIf="attribute.required" class="text-danger">*</label>
+            <input
+              type="date"
+              class="form-control"
+              id="{{ attribute.name }}"
+              placeholder="{{ attribute.placeholder }}"
+            />
+          </div>
+          <div *ngIf="attribute.type == 'datetime-local'">
+            <label>{{ attribute.label }}</label>
+            <label *ngIf="attribute.required" class="text-danger">*</label>
+            <input
+              type="datetime-local"
+              class="form-control"
+              id="{{ attribute.name }}"
+              placeholder="{{ attribute.placeholder }}"
+            />
+          </div>
+          <div *ngIf="attribute.type == 'textarea'">
+            <label>{{ attribute.label }}</label>
+            <label *ngIf="attribute.required" class="text-danger">*</label>
+            <textarea
+              class="form-control"
+              id="{{ attribute.name }}"
+              placeholder="{{ attribute.placeholder }}"
+            >
+            </textarea>
+          </div>
+          <div *ngIf="attribute.type == 'file'">
+            <label
+              >{{ attribute.label }} (File can't be uploaded right now)</label
+            >
+            <label *ngIf="attribute.required" class="text-danger">*</label>
+            <input
+              type="file"
+              class="form-control"
+              id="{{ attribute.name }}"
+              placeholder="{{ attribute.placeholder }}"
+            />
+            <small class="form-text text-danger"
+              >(File can't be uploaded right now)</small
+            >
+          </div>
+          <div *ngIf="attribute.type == 'paragraph'">
+            <p class="form-text">{{ attribute.placeholder }}</p>
+          </div>
+          <div *ngIf="attribute.type == 'autocomplete'">
+            <label>{{ attribute.label }}</label>
+            <label *ngIf="attribute.required" class="text-danger">*</label>
+            <select class="form-control" id="{{ attribute.name }}">
+              <option *ngFor="let v of attribute.values" [value]="v.value">
+                {{ v.label }}
+              </option>
+            </select>
+            <!-- <small class="form-text text-muted">{{attribute.description}}</small> -->
+          </div>
+          <div *ngIf="attribute.type == 'checkbox'">
+            <label>{{ attribute.label }}</label>
+            <label *ngIf="attribute.required" class="text-danger">*</label>
+            <div *ngFor="let v of attribute.values" class="inline-form-group">
+              <label class="cust-check-bx">
+                <input
+                  type="checkbox"
+                  [value]="v.value"
+                  name="{{ attribute.name }}"
+                  (click)="toggleValue(v)"
+                />
+                {{ v.label }}
+                <span class="checkmark"></span>
+              </label>
+            </div>
+          </div>
+          <div *ngIf="attribute.type == 'radio'">
+            <label>{{ attribute.label }}</label>
+            <label *ngIf="attribute.required" class="text-danger">*</label>
+            <div *ngFor="let v of attribute.values" class="inline-form-group">
+              <label class="cust-check-bx">
+                <input
+                  type="radio"
+                  [value]="v.value"
+                  name="{{ attribute.name }}"
+                />
+                {{ v.label }}
+                <span class="checkmark"></span>
+              </label>
+            </div>
+          </div>
+          <div *ngIf="attribute.type == 'button'" class="btn-cont">
+            <input
+              type="{{ attribute.subtype }}"
+              (click)="submit()"
+              value="{{ attribute.label }}"
+              class="btn btn-primary"
+              id="{{ attribute.name }}"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
