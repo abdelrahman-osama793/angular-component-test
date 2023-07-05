@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { CdkDragDrop, moveItemInArray, transferArrayItem, copyArrayItem } from "@angular/cdk/drag-drop";
-import { field } from './global.model';
+import { CdkDragDrop, moveItemInArray, copyArrayItem } from "@angular/cdk/drag-drop";
+import { field, value } from './global.model';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalComponent } from './modal/modal.component';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +10,8 @@ import { field } from './global.model';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  constructor(private dialog: MatDialog) { }
+
   title = 'angular-drag-drop-test';
 
   // goodGames = [
@@ -32,18 +36,18 @@ export class AppComponent {
   fieldModels: Array<field> = [
     {
       "type": "text",
-      "icon": "fa-font",
+      "icon": "text_fields",
       "label": "Text",
       "description": "Enter your name",
       "placeholder": "Enter your name",
       "className": "form-control",
       "subtype": "text",
       "regex": "",
-      "handle": true
+      "handle": true,
     },
     {
       "type": "email",
-      "icon": "fa-envelope",
+      "icon": "mail",
       "required": true,
       "label": "Email",
       "description": "Enter your email",
@@ -56,7 +60,7 @@ export class AppComponent {
     },
     {
       "type": "phone",
-      "icon": "fa-phone",
+      "icon": "call",
       "label": "Phone",
       "description": "Enter your phone",
       "placeholder": "Enter your phone",
@@ -68,28 +72,28 @@ export class AppComponent {
     },
     {
       "type": "date",
-      "icon": "fa-calendar",
+      "icon": "calendar_month",
       "label": "Date",
       "placeholder": "Date",
       "className": "form-control"
     },
     {
       "type": "datetime-local",
-      "icon": "fa-calendar",
-      "label": "DateTime",
+      "icon": "calendar_month",
+      "label": "Date & Time",
       "placeholder": "Date Time",
       "className": "form-control"
     },
     {
       "type": "textarea",
-      "icon": "fa-text-width",
+      "icon": "description",
       "label": "Textarea"
     },
     {
       "type": "checkbox",
       "required": true,
       "label": "Checkbox",
-      "icon": "fa-list",
+      "icon": "check_box",
       "description": "Checkbox",
       "inline": true,
       "values": [
@@ -105,7 +109,7 @@ export class AppComponent {
     },
     {
       "type": "radio",
-      "icon": "fa-list-ul",
+      "icon": "radio_button_unchecked",
       "label": "Radio",
       "description": "Radio boxes",
       "values": [
@@ -121,9 +125,9 @@ export class AppComponent {
     },
     {
       "type": "button",
-      "icon": "fa-paper-plane",
+      "icon": "smart_button",
       "subtype": "submit",
-      "label": "Submit"
+      "label": "Button"
     }
   ];
 
@@ -141,6 +145,11 @@ export class AppComponent {
     attributes: this.bodyFields
   };
 
+  value: value = {
+    label: "",
+    value: ""
+  };
+  success = false;
 
   onDrop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer !== event.container) {
@@ -159,27 +168,23 @@ export class AppComponent {
     }
   }
 
-  toggleValue(item:any){
+  removeField(i: number) {
+    const dialogRef = this.dialog.open(ModalComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.bodyFields.splice(i,1);
+      }
+    });
+  }
+
+  toggleValue(item: any) {
     item.selected = !item.selected;
   }
-  
-  submit(){}
 
-  // onDrop(event: CdkDragDrop<string[]>) {
-  //   if (event.previousContainer === event.container) {
-  //     moveItemInArray(
-  //       event.container.data,
-  //       event.previousIndex,
-  //       event.currentIndex,
-  //     )
-  //   } else {
-  //     transferArrayItem(
-  //       event.previousContainer.data,
-  //       event.container.data,
-  //       event.previousIndex,
-  //       event.currentIndex,
-  //     )
-  //   }
+  addValue(values: any) {
+    values.push(this.value);
+    this.value = { label: "", value: "" };
+  }
+  submit() { }
 
-  // }
 }

@@ -3,7 +3,7 @@
     Drag by the handler!
 
     <div class="handle" cdkDragHandle>
-      <span class="material-icons">drag_indicator</span>
+      <span class="material-icons ">drag_indicator</span>
     </div>
   </div>
 
@@ -88,7 +88,8 @@
         [cdkDropListData]="fieldModels"
       >
         <div cdkDrag class="draggable-item" *ngFor="let field of fieldModels">
-          {{ field.type }}
+          <span class="material-icons">{{ field.icon }}</span>
+          {{ field.label }}
         </div>
       </div>
     </div>
@@ -102,153 +103,354 @@
         [cdkDropListData]="body.attributes"
         class="drop-zone"
       >
-        <div *ngIf="bodyFields.length === 0">
+        <div *ngIf="bodyFields.length === 0" class="no-components">
           Drag and Drop a component here
         </div>
         <div cdkDrag *ngFor="let attribute of bodyFields; let i = index">
-          <div *ngIf="attribute.type == 'text'">
-            <label>{{ attribute.label }}</label>
-            <label *ngIf="attribute.required" class="text-danger">*</label>
-            <input
-              type="text"
-              class="form-control"
-              id="{{ attribute.name }}"
-              placeholder="{{ attribute.placeholder }}"
-            />
-          </div>
-          <div *ngIf="attribute.type == 'email'">
-            <label>{{ attribute.label }}</label>
-            <label *ngIf="attribute.required" class="text-danger">*</label>
-            <input
-              type="email"
-              class="form-control"
-              id="{{ attribute.name }}"
-              placeholder="{{ attribute.placeholder }}"
-            />
-          </div>
-          <div *ngIf="attribute.type == 'phone'">
-            <label>{{ attribute.label }}</label>
-            <label *ngIf="attribute.required" class="text-danger">*</label>
-            <input
-              type="text"
-              class="form-control"
-              id="{{ attribute.name }}"
-              placeholder="{{ attribute.placeholder }}"
-            />
-          </div>
-          <div *ngIf="attribute.type == 'number'">
-            <label>{{ attribute.label }}</label>
-            <label *ngIf="attribute.required" class="text-danger">*</label>
-            <input
-              type="number"
-              class="form-control"
-              id="{{ attribute.name }}"
-              min="{{ attribute.min }}"
-              max="{{ attribute.max }}"
-              placeholder="{{ attribute.placeholder }}"
-            />
-          </div>
-          <div *ngIf="attribute.type == 'date'">
-            <label>{{ attribute.label }}</label>
-            <label *ngIf="attribute.required" class="text-danger">*</label>
-            <input
-              type="date"
-              class="form-control"
-              id="{{ attribute.name }}"
-              placeholder="{{ attribute.placeholder }}"
-            />
-          </div>
-          <div *ngIf="attribute.type == 'datetime-local'">
-            <label>{{ attribute.label }}</label>
-            <label *ngIf="attribute.required" class="text-danger">*</label>
-            <input
-              type="datetime-local"
-              class="form-control"
-              id="{{ attribute.name }}"
-              placeholder="{{ attribute.placeholder }}"
-            />
-          </div>
-          <div *ngIf="attribute.type == 'textarea'">
-            <label>{{ attribute.label }}</label>
-            <label *ngIf="attribute.required" class="text-danger">*</label>
-            <textarea
-              class="form-control"
-              id="{{ attribute.name }}"
-              placeholder="{{ attribute.placeholder }}"
-            >
-            </textarea>
-          </div>
-          <div *ngIf="attribute.type == 'file'">
-            <label
-              >{{ attribute.label }} (File can't be uploaded right now)</label
-            >
-            <label *ngIf="attribute.required" class="text-danger">*</label>
-            <input
-              type="file"
-              class="form-control"
-              id="{{ attribute.name }}"
-              placeholder="{{ attribute.placeholder }}"
-            />
-            <small class="form-text text-danger"
-              >(File can't be uploaded right now)</small
-            >
-          </div>
-          <div *ngIf="attribute.type == 'paragraph'">
-            <p class="form-text">{{ attribute.placeholder }}</p>
-          </div>
-          <div *ngIf="attribute.type == 'autocomplete'">
-            <label>{{ attribute.label }}</label>
-            <label *ngIf="attribute.required" class="text-danger">*</label>
-            <select class="form-control" id="{{ attribute.name }}">
-              <option *ngFor="let v of attribute.values" [value]="v.value">
-                {{ v.label }}
-              </option>
-            </select>
-          </div>
-          <div *ngIf="attribute.type == 'checkbox'">
-            <label>{{ attribute.label }}</label>
-            <label *ngIf="attribute.required" class="text-danger">*</label>
-            <div *ngFor="let v of attribute.values" class="inline-form-group">
-              <label class="cust-check-bx">
+          <div class="row form-group grabbable">
+            <div class="col-8">
+              <div *ngIf="attribute.type == 'text'">
+                <label>{{ attribute.label }}</label>
+                <label *ngIf="attribute.required" class="text-danger">*</label>
                 <input
-                  type="checkbox"
-                  [value]="v.value"
-                  name="{{ attribute.name }}"
-                  (click)="toggleValue(v)"
+                  type="text"
+                  class="form-control"
+                  id="{{ attribute.name }}"
+                  placeholder="{{ attribute.placeholder }}"
                 />
-                {{ v.label }}
-                <span class="checkmark"></span>
-              </label>
+              </div>
+              <div *ngIf="attribute.type == 'email'">
+                <label>{{ attribute.label }}</label>
+                <label *ngIf="attribute.required" class="text-danger">*</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="{{ attribute.name }}"
+                  placeholder="{{ attribute.placeholder }}"
+                />
+              </div>
+              <div *ngIf="attribute.type == 'phone'">
+                <label>{{ attribute.label }}</label>
+                <label *ngIf="attribute.required" class="text-danger">*</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="{{ attribute.name }}"
+                  placeholder="{{ attribute.placeholder }}"
+                />
+              </div>
+              <div *ngIf="attribute.type == 'date'">
+                <label>{{ attribute.label }}</label>
+                <label *ngIf="attribute.required" class="text-danger">*</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="{{ attribute.name }}"
+                  placeholder="{{ attribute.placeholder }}"
+                />
+              </div>
+              <div *ngIf="attribute.type == 'datetime-local'">
+                <label>{{ attribute.label }}</label>
+                <label *ngIf="attribute.required" class="text-danger">*</label>
+                <input
+                  type="datetime-local"
+                  class="form-control"
+                  id="{{ attribute.name }}"
+                  placeholder="{{ attribute.placeholder }}"
+                />
+              </div>
+              <div *ngIf="attribute.type == 'textarea'">
+                <label>{{ attribute.label }}</label>
+                <label *ngIf="attribute.required" class="text-danger">*</label>
+                <textarea
+                  class="form-control"
+                  id="{{ attribute.name }}"
+                  placeholder="{{ attribute.placeholder }}"
+                >
+                </textarea>
+              </div>
+              <div *ngIf="attribute.type == 'checkbox'">
+                <label>{{ attribute.label }}</label>
+                <label *ngIf="attribute.required" class="text-danger">*</label>
+                <div
+                  *ngFor="let v of attribute.values"
+                  class="inline-form-group"
+                >
+                  <label class="cust-check-bx">
+                    <input
+                      type="checkbox"
+                      [value]="v.value"
+                      name="{{ attribute.name }}"
+                      (click)="toggleValue(v)"
+                    />
+                    {{ v.label }}
+                    <span class="checkmark"></span>
+                  </label>
+                </div>
+              </div>
+              <div *ngIf="attribute.type == 'radio'">
+                <label>{{ attribute.label }}</label>
+                <label *ngIf="attribute.required" class="text-danger">*</label>
+                <div
+                  *ngFor="let v of attribute.values"
+                  class="inline-form-group"
+                >
+                  <label class="cust-check-bx">
+                    <input
+                      type="radio"
+                      [value]="v.value"
+                      name="{{ attribute.name }}"
+                    />
+                    {{ v.label }}
+                    <span class="checkmark"></span>
+                  </label>
+                </div>
+              </div>
+              <div *ngIf="attribute.type == 'button'" class="btn-cont">
+                <input
+                  type="{{ attribute.subtype }}"
+                  (click)="submit()"
+                  value="{{ attribute.label }}"
+                  class="btn btn-primary"
+                  id="{{ attribute.name }}"
+                />
+              </div>
+            </div>
+            <div class="col-4 field-operations">
+              <span
+                title="close"
+                *ngIf="attribute.toggle"
+                (click)="attribute.toggle = false"
+                class="material-icons"
+              >
+                close
+              </span>
+              <span
+                title="edit"
+                *ngIf="!attribute.toggle"
+                (click)="attribute.toggle = true"
+                class="material-icons edit-btn"
+              >
+                settings
+              </span>
+              <span
+                title="Remove"
+                (click)="removeField(i)"
+                class="material-icons remove-btn"
+              >
+                delete
+              </span>
+              <span class="material-icons handle" cdkDragHandle>drag_pan</span>
             </div>
           </div>
-          <div *ngIf="attribute.type == 'radio'">
-            <label>{{ attribute.label }}</label>
-            <label *ngIf="attribute.required" class="text-danger">*</label>
-            <div *ngFor="let v of attribute.values" class="inline-form-group">
-              <label class="cust-check-bx">
-                <input
-                  type="radio"
-                  [value]="v.value"
-                  name="{{ attribute.name }}"
-                />
-                {{ v.label }}
-                <span class="checkmark"></span>
-              </label>
+
+          <!-- Edit Form -->
+          <div *ngIf="attribute.toggle" class="edit-form">
+            <div class="row form-group">
+              <label class="col-2">Required</label>
+              <span
+                *ngIf="attribute.required"
+                (click)="attribute.required = false"
+                class="material-icons col-2"
+                style="color: rgb(0, 162, 255); font-size: 28px"
+              >
+                toggle_on
+              </span>
+              <span
+                *ngIf="!attribute.required"
+                (click)="attribute.required = true"
+                class="material-icons col-2"
+                style="color: grey; font-size: 28px"
+              >
+                toggle_off
+              </span>
+            </div>
+            <div class="form-group">
+              <label>Label</label>
+              <input
+                class="form-control"
+                type="text"
+                [(ngModel)]="attribute.label"
+              />
+            </div>
+            <div class="form-group">
+              <label>Name</label>
+              <input
+                class="form-control"
+                type="text"
+                [(ngModel)]="attribute.name"
+              />
+            </div>
+            <div class="form-group">
+              <label>Placeholder</label>
+              <input
+                class="form-control"
+                type="text"
+                [(ngModel)]="attribute.placeholder"
+              />
+            </div>
+            <div class="form-group">
+              <label>Regex</label>
+              <input
+                class="form-control"
+                type="text"
+                [(ngModel)]="attribute.regex"
+              />
+            </div>
+            <div *ngIf="attribute.regex" class="form-group">
+              <label>Error text</label>
+              <input
+                class="form-control"
+                type="text"
+                [(ngModel)]="attribute.errorText"
+              />
+            </div>
+
+            <!-- number -->
+            <div *ngIf="attribute.type == 'number'" class="row">
+              <div class="col-6">
+                <div class="form-group">
+                  <label>Min</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    [(ngModel)]="attribute.min"
+                  />
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <label>Max</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    [(ngModel)]="attribute.max"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- radio || checkbox || autocomplete -->
+            <div
+              *ngIf="
+                attribute.type == 'radio' ||
+                attribute.type == 'checkbox' ||
+                attribute.type == 'autocomplete'
+              "
+            >
+              <div class="row">
+                <div class="col-5">
+                  <div class="form-group">
+                    <label>Label</label>
+                  </div>
+                </div>
+                <div class="col-5">
+                  <div class="form-group">
+                    <label>Value</label>
+                  </div>
+                </div>
+                <div class="col-2">
+                  <div class="form-group">
+                    <label>Action</label>
+                  </div>
+                </div>
+              </div>
+              <div
+                *ngFor="let i of attribute.values; let valueIndex = index"
+                class="row"
+              >
+                <div class="col-5">
+                  <div class="form-group">
+                    <input
+                      class="form-control"
+                      type="text"
+                      [(ngModel)]="i.label"
+                    />
+                  </div>
+                </div>
+                <div class="col-5">
+                  <div class="form-group">
+                    <input
+                      class="form-control"
+                      type="text"
+                      [(ngModel)]="i.value"
+                    />
+                  </div>
+                </div>
+                <div class="col-2">
+                  <div class="form-group">
+                    <label (click)="attribute.values!.splice(valueIndex, 1)"
+                      >remove</label
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-5">
+                  <div class="form-group">
+                    <input
+                      class="form-control"
+                      type="text"
+                      [(ngModel)]="value.label"
+                    />
+                  </div>
+                </div>
+                <div class="col-5">
+                  <div class="form-group">
+                    <input
+                      class="form-control"
+                      type="text"
+                      [(ngModel)]="value.value"
+                    />
+                  </div>
+                </div>
+                <div class="col-2">
+                  <div class="form-group">
+                    <label (click)="addValue(attribute.values)">Add</label>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div *ngIf="attribute.type == 'button'" class="btn-cont">
-            <input
-              type="{{ attribute.subtype }}"
-              (click)="submit()"
-              value="{{ attribute.label }}"
-              class="btn btn-primary"
-              id="{{ attribute.name }}"
-            />
+
+          <!-- Modal -->
+          <div
+            class="modal fade"
+            id="exampleModal"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">
+                    Modal title
+                  </h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">...</div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                  <button type="button" class="btn btn-primary">Remove</button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
 <router-outlet></router-outlet>

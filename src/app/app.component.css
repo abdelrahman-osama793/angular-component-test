@@ -1,8 +1,29 @@
-h2{
+h2 {
   text-align: center;
 }
 
-.transfer-between-two{
+.field-operations {
+  text-align: center;
+}
+
+.remove-btn {
+  color: rgb(211, 2, 2);
+  margin: 5px;
+}
+
+.edit-btn {
+  color: rgb(107, 107, 107);
+  margin: 5px;
+}
+
+.edit-btn:hover,
+.remove-btn:hover {
+  cursor: pointer;
+  border-radius: 100px;
+  box-shadow: 0px 0px 10px rgb(70, 69, 69);
+}
+
+.transfer-between-two {
   background-color: burlywood;
   border-radius: 50px;
   margin: auto;
@@ -27,17 +48,41 @@ h2{
   background-color: white;
   align-items: center;
   justify-content: center;
-  text-align: center;
   border-radius: 10px;
+  padding: 10px;
+}
+
+.no-components {
+  text-align: center;
+}
+
+.grabbable {
+  cursor: all-scroll; /* fallback if grab cursor is unsupported */
+  cursor: all-scroll;
+  cursor: -moz-all-scroll;
+  cursor: -webkit-all-scroll;
+}
+
+.grabbable:active {
+  cursor: all-scroll;
+  cursor: -moz-all-scroll;
+  cursor: -webkit-all-scroll;
 }
 
 .draggable-item {
   padding: 1em;
-  border: 1px solid black;
+  border: 1px solid rgb(36, 36, 36);
   border-radius: 10px;
   background-color: white;
   width: 200px;
   margin: auto;
+  display: flex;
+}
+
+.draggable-item span{
+  font-size: 16px;
+  margin-top: 5px;
+  margin-right: 5px;
 }
 
 .bounding-box {
@@ -94,10 +139,6 @@ h2{
   transition: transform 200ms ease-in;
 }
 
-/* .cdk-drag:not(.cdk-drag-preview) {
-  transform: none !important;
-}
-*/
 .cdk-drag-placeholder {
   opacity: 0.5;
 }
