@@ -158,7 +158,8 @@ export class AppComponent {
         event.container.data,
         event.previousIndex,
         event.currentIndex,
-      )
+      );
+
     } else {
       moveItemInArray(
         event.container.data,
@@ -172,7 +173,7 @@ export class AppComponent {
     const dialogRef = this.dialog.open(ModalComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.bodyFields.splice(i,1);
+        this.bodyFields.splice(i, 1);
       }
     });
   }

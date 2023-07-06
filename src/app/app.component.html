@@ -87,7 +87,12 @@
         [cdkDropListConnectedTo]="['wishlistGames']"
         [cdkDropListData]="fieldModels"
       >
-        <div cdkDrag class="draggable-item" *ngFor="let field of fieldModels">
+        <div
+          cdkDrag
+          class="draggable-item"
+          *ngFor="let field of fieldModels"
+          cdkDragPlaceholder
+        >
           <span class="material-icons">{{ field.icon }}</span>
           {{ field.label }}
         </div>
@@ -221,7 +226,7 @@
                 title="close"
                 *ngIf="attribute.toggle"
                 (click)="attribute.toggle = false"
-                class="material-icons"
+                class="material-icons cancel-btn"
               >
                 close
               </span>
@@ -240,7 +245,6 @@
               >
                 delete
               </span>
-              <span class="material-icons handle" cdkDragHandle>drag_pan</span>
             </div>
           </div>
 
@@ -251,16 +255,14 @@
               <span
                 *ngIf="attribute.required"
                 (click)="attribute.required = false"
-                class="material-icons col-2"
-                style="color: rgb(0, 162, 255); font-size: 28px"
+                class="material-icons col-2 activated-required"
               >
                 toggle_on
               </span>
               <span
                 *ngIf="!attribute.required"
                 (click)="attribute.required = true"
-                class="material-icons col-2"
-                style="color: grey; font-size: 28px"
+                class="material-icons col-2 deactivated-required"
               >
                 toggle_off
               </span>
@@ -408,42 +410,6 @@
                   <div class="form-group">
                     <label (click)="addValue(attribute.values)">Add</label>
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Modal -->
-          <div
-            class="modal fade"
-            id="exampleModal"
-            tabindex="-1"
-            aria-labelledby="exampleModalLabel"
-            aria-hidden="true"
-          >
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">
-                    Modal title
-                  </h5>
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
-                </div>
-                <div class="modal-body">...</div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                  <button type="button" class="btn btn-primary">Remove</button>
                 </div>
               </div>
             </div>
